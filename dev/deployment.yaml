@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-customer-service
+spec:
+  selector:
+    matchLabels:
+      app: api-customer-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: api-customer-service
+    spec:
+      containers:
+        - name: api-customer-service
+          image: zekiptg/nestjs-mono-repo-api-customer-service:fcafa59b69193c274cec084c6ebbcef4f7ef6ff8
+          ports:
+            - containerPort: 3333
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-app
+spec:
+  selector:
+    matchLabels:
+      app: client-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: client-app
+    spec:
+      containers:
+        - name: client-app
+          image: zekiptg/nestjs-mono-repo-client-app:fcafa59b69193c274cec084c6ebbcef4f7ef6ff8
+          ports:
+            - containerPort: 8080
